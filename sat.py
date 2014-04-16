@@ -38,14 +38,9 @@ if __name__ == '__main__':
             instance = SATInstance.from_file(file)
     else:
         instance = SATInstance.from_file(stdin)
-    assignment = None
-    if args.recursive:
-        assignment = recursive_sat.solve(instance, args.verbose)
-    else:
-        assignment = iterative_sat.solve(instance, args.verbose)
-    if assignment:
-        if args.verbose:
-            print('Found satisfying assignment.', file=stderr)
+
+    alg = recursive_sat.solve if args.recursive else iterative_sat.solve
+    for assignment in alg(instance, args.verbose):
         print(instance.assignment_to_string(assignment))
     else:
         if args.verbose:

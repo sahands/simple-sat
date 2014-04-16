@@ -12,7 +12,7 @@ __email__ = 'sahands@gmail.com'
 def solve(instance, verbose=False):
     watchlist = setup_watchlist(instance)
     if not watchlist:
-        return None
+        return
 
     # The state list wil keep track of what values for which variables
     # we have tried so far. A value of 0 means nothing has been tried yet,
@@ -23,7 +23,9 @@ def solve(instance, verbose=False):
     d = 0  # Current depth in the backtrack tree
     while True:
         if d == instance.n:
-            return assignment
+            yield assignment
+            d -= 1
+            continue
         # Let's try assigning a value to v. Here would be the place to insert
         # heuristics of which value to try first.
         tried_something = False
@@ -45,7 +47,7 @@ def solve(instance, verbose=False):
         if not tried_something:
             if d == 0:
                 # Can't backtrack further. No solutions.
-                return None
+                return
             else:
                 # Backtrack
                 state[d] = 0
