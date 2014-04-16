@@ -1,6 +1,8 @@
 from __future__ import division
 from __future__ import print_function
 
+__author__ = 'Sahand Saba'
+
 
 class SATInstance(object):
     def _parse_and_add_clause(self, line):
@@ -25,7 +27,7 @@ class SATInstance(object):
             if variable not in self.variable_table:
                 self.variable_table[variable] = len(self.variables)
                 self.variables.append(variable)
-            encoded_literal = 2 * self.variable_table[variable] + negated
+            encoded_literal = self.variable_table[variable] << 1 | negated
             clause.append(encoded_literal)
         self.clauses.append(tuple(set(clause)))
 
@@ -41,7 +43,7 @@ class SATInstance(object):
         return instance
 
     def literal_to_string(self, literal):
-        s = '~' if literal % 2 == 1 else ''
+        s = '~' if literal & 1 else ''
         return s + self.variables[literal >> 1]
 
     def clause_to_string(self, clause):

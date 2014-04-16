@@ -9,15 +9,35 @@ from __future__ import print_function
 from argparse import ArgumentParser
 from sys import stdin
 from sys import stderr
+from types import FileType
+
 from satinstance import SATInstance
 import recursive_sat
 import iterative_sat
 
 __author__ = 'Sahand Saba'
-__email__ = 'sahands@gmail.com'
 
 
-if __name__ == '__main__':
+def main():
+    args = parse_args()
+    instance = None
+    with args.input as file:
+        instance = SATInstance.from_file(file)
+
+    assignments = args.algorithm.solve(instance, args.verbose)
+    count = 0
+    for assignment in assignments:
+        if args.verbose:
+            print('Found satisfying assignment #{}:'.format(count),
+                  file=stderr)
+        print(instance.assignment_to_string(assignment))
+        count += 1
+
+    if args.verbose and count == 0:
+        print('No satisfying assignment exists.', file=stderr)
+
+
+def parse_args():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument('-v',
                         '--verbose',
@@ -26,22 +46,17 @@ if __name__ == '__main__':
     parser.add_argument('-r',
                         '--recursive',
                         help='use the recursive backtracking algorithm.',
-                        action='store_true')
+                        action='store_const',
+                        dest='algorithm',
+                        default=iterative_sat,
+                        const=recursive_sat)
     parser.add_argument('-i',
                         '--input',
                         help='read from given file instead of stdin.',
-                        action='store')
-    args = parser.parse_args()
-    instance = None
-    if args.input:
-        with open(args.input, 'r') as file:
-            instance = SATInstance.from_file(file)
-    else:
-        instance = SATInstance.from_file(stdin)
+                        type=FileType,
+                        default=stdin)
+    return parser.parse_args()
 
-    alg = recursive_sat.solve if args.recursive else iterative_sat.solve
-    for assignment in alg(instance, args.verbose):
-        print(instance.assignment_to_string(assignment))
-    else:
-        if args.verbose:
-            print('No satisfying assignment exists.', file=stderr)
+
+if __name__ == '__main__':
+    main()

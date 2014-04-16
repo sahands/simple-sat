@@ -4,9 +4,7 @@ from __future__ import print_function
 from watchlist import setup_watchlist
 from watchlist import update_watchlist
 
-
 __author__ = 'Sahand Saba'
-__email__ = 'sahands@gmail.com'
 
 
 def solve(instance, verbose=False):
