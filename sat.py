@@ -7,9 +7,9 @@ from __future__ import division
 from __future__ import print_function
 
 from argparse import ArgumentParser
+from argparse import FileType
 from sys import stdin
 from sys import stderr
-from types import FileType
 
 from satinstance import SATInstance
 import recursive_sat
@@ -32,6 +32,8 @@ def main():
                   file=stderr)
         print(instance.assignment_to_string(assignment))
         count += 1
+        if not args.all:
+            break
 
     if args.verbose and count == 0:
         print('No satisfying assignment exists.', file=stderr)
@@ -43,6 +45,10 @@ def parse_args():
                         '--verbose',
                         help='verbose output.',
                         action='store_true')
+    parser.add_argument('-a',
+                        '--all',
+                        help='output all possible solutions.',
+                        action='store_true')
     parser.add_argument('-r',
                         '--recursive',
                         help='use the recursive backtracking algorithm.',
@@ -53,7 +59,7 @@ def parse_args():
     parser.add_argument('-i',
                         '--input',
                         help='read from given file instead of stdin.',
-                        type=FileType,
+                        type=FileType('r'),
                         default=stdin)
     return parser.parse_args()
 

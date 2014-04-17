@@ -34,7 +34,7 @@ def solve(instance, verbose=False):
                 state[d] |= 1 << a
                 assignment[d] = a
                 if not update_watchlist(instance, watchlist,
-                                        d << 1 | 1 ^ a,
+                                        d << 1 | a,
                                         assignment,
                                         verbose):
                     assignment[d] = None

@@ -18,7 +18,7 @@ def _solve(instance, watchlist, assignment, d, verbose):
         assignment[d] = a
         if update_watchlist(instance,
                             watchlist,
-                            d << 1 | a ^ 1,
+                            (d << 1) | a,
                             assignment,
                             verbose):
             for a in _solve(instance, watchlist, assignment, d + 1, verbose):
