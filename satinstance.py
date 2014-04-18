@@ -38,7 +38,7 @@ class SATInstance(object):
         instance.variable_table = dict()
         instance.clauses = []
         for line in file:
-            if not line.startswith('#'):
+            if line and not line.startswith('#'):
                 instance._parse_and_add_clause(line)
         instance.n = len(instance.variables)
         return instance
