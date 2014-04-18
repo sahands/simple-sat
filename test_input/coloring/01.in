@@ -7,6 +7,7 @@ R1 B1 G1 Y1
 ~B1 ~G1
 ~B1 ~Y1
 ~G1 ~Y1
+
 # Similarly for region 2
 R2 B2 G2 Y2
 ~R2 ~B2
@@ -15,3 +16,10 @@ R2 B2 G2 Y2
 ~B2 ~G2
 ~B2 ~Y2
 ~G2 ~Y2
+
+# Make sure regions 1 and 2 do not have the same color since they are
+# neighbours
+~R1 ~R2
+~B1 ~B2
+~G1 ~G2
+~Y1 ~Y2
