@@ -31,7 +31,7 @@ def main():
         if args.verbose:
             print('Found satisfying assignment #{}:'.format(count),
                   file=stderr)
-        print(instance.assignment_to_string(assignment))
+        print(instance.assignment_to_string(assignment, brief=args.brief))
         count += 1
         if not args.all:
             break
@@ -49,6 +49,11 @@ def parse_args():
     parser.add_argument('-a',
                         '--all',
                         help='output all possible solutions.',
+                        action='store_true')
+    parser.add_argument('-b',
+                        '--brief',
+                        help=('brief output for assignemnts:'
+                              ' outputs variables assigned 1.'),
                         action='store_true')
     parser.add_argument('-r',
                         '--recursive',

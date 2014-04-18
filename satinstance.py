@@ -51,7 +51,11 @@ class SATInstance(object):
     def clause_to_string(self, clause):
         return ' '.join(self.literal_to_string(l) for l in clause)
 
-    def assignment_to_string(self, assignment):
-        return ' '.join(v if assignment[i] else '~' + v
-                        for i, v in enumerate(self.variables)
-                        if assignment[i] is not None)
+    def assignment_to_string(self, assignment, brief=False):
+        if brief:
+            return ' '.join(v for i, v in enumerate(self.variables)
+                            if assignment[i])
+        else:
+            return ' '.join(v if assignment[i] else '~' + v
+                            for i, v in enumerate(self.variables)
+                            if assignment[i] is not None)
