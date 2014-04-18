@@ -1,7 +1,8 @@
 """
 Solve SAT instance by reading from stdin using an iterative or recursive
 watchlist-based backtracking algorithm. Iterative algorithm is used by default,
-unless the -r flag is given. Input lines starting with a # will be ignored.
+unless the -r flag is given. Empty lines and lines starting with a # will be
+ignored.
 """
 from __future__ import division
 from __future__ import print_function
