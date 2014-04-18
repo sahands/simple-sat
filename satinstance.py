@@ -38,10 +38,9 @@ class SATInstance(object):
         instance.variable_table = dict()
         instance.clauses = []
         for line in file:
-            instance._parse_and_add_clause(line)
+            if not line.startswith('#'):
+                instance._parse_and_add_clause(line)
         instance.n = len(instance.variables)
-        # for clause in instance.clauses:
-        #     print(instance.clause_to_string(clause))
         return instance
 
     def literal_to_string(self, literal):

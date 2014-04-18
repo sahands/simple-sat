@@ -1,0 +1,17 @@
+# Assign at least one color to region 1
+R1 B1 G1 Y1
+# But no more than one color
+~R1 ~B1
+~R1 ~G1
+~R1 ~Y1
+~B1 ~G1
+~B1 ~Y1
+~G1 ~Y1
+# Similarly for region 2
+R2 B2 G2 Y2
+~R2 ~B2
+~R2 ~G2
+~R2 ~Y2
+~B2 ~G2
+~B2 ~Y2
+~G2 ~Y2
