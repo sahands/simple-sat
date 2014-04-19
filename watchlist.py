@@ -20,10 +20,7 @@ def dump_watchlist(instance, watchlist):
 def setup_watchlist(instance):
     watchlist = [deque() for __ in range(2 * len(instance.variables))]
     for clause in instance.clauses:
-        # Unsatisfiable if there is an empty clause.
-        if not clause:
-            return None
-        # Otherwise, make the clause watch its first literal
+        # Make the clause watch its first literal
         watchlist[clause[0]].append(clause)
     return watchlist
 
