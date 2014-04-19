@@ -1,6 +1,8 @@
 from __future__ import division
 from __future__ import print_function
 
+from sys import stderr
+
 from watchlist import setup_watchlist
 from watchlist import update_watchlist
 
@@ -15,6 +17,9 @@ def _solve(instance, watchlist, assignment, d, verbose):
         return
 
     for a in [0, 1]:
+        if verbose:
+            print('Trying {} = {}'.format(instance.variables[d], a),
+                  file=stderr)
         assignment[d] = a
         if update_watchlist(instance,
                             watchlist,

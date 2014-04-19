@@ -1,6 +1,8 @@
 from __future__ import division
 from __future__ import print_function
 
+from sys import stderr
+
 from watchlist import setup_watchlist
 from watchlist import update_watchlist
 
@@ -30,6 +32,9 @@ def solve(instance, verbose=False):
         tried_something = False
         for a in [0, 1]:
             if (state[d] >> a) & 1 == 0:
+                if verbose:
+                    print('Trying {} = {}'.format(instance.variables[d], a),
+                          file=stderr)
                 tried_something = True
                 # Set the bit indicating a has been tried for d
                 state[d] |= 1 << a
