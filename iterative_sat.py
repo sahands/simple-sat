@@ -16,11 +16,12 @@ def solve(instance, verbose=False):
     # we have tried so far. A value of 0 means nothing has been tried yet,
     # a value of 1 means False has been tried but not True, 2 means True but
     # not False, and 3 means both have been tried.
-    state = [0] * instance.n
-    assignment = [None] * instance.n
+    n = len(instance.variables)
+    state = [0] * n
+    assignment = [None] * n
     d = 0  # Current depth in the backtrack tree
     while True:
-        if d == instance.n:
+        if d == n:
             yield assignment
             d -= 1
             continue

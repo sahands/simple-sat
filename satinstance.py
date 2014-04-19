@@ -43,7 +43,6 @@ class SATInstance(object):
             line = line.strip()
             if len(line) > 0 and not line.startswith('#'):
                 instance.parse_and_add_clause(line)
-        instance.n = len(instance.variables)
         return instance
 
     def literal_to_string(self, literal):

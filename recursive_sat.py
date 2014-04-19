@@ -10,7 +10,7 @@ __email__ = 'sahands@gmail.com'
 
 
 def _solve(instance, watchlist, assignment, d, verbose):
-    if d == instance.n:
+    if d == len(instance.variables):
         yield assignment
         return
 
