@@ -31,7 +31,9 @@ def main():
         if args.verbose:
             print('Found satisfying assignment #{}:'.format(count),
                   file=stderr)
-        print(instance.assignment_to_string(assignment, brief=args.brief))
+        print(instance.assignment_to_string(assignment,
+                                            brief=args.brief,
+                                            starting_with=args.output_filter))
         count += 1
         if not args.all:
             break
@@ -55,6 +57,10 @@ def parse_args():
                         help=('brief output for assignemnts:'
                               ' outputs variables assigned 1.'),
                         action='store_true')
+    parser.add_argument('--output_filter',
+                        help=('only output variables with names'
+                              'string with given string.'),
+                        default='')
     parser.add_argument('-r',
                         '--recursive',
                         help='use the recursive backtracking algorithm.',
