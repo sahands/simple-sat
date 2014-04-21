@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Solve SAT instance by reading from stdin using an iterative or recursive
 watchlist-based backtracking algorithm. Iterative algorithm is used by default,
