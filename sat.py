@@ -60,7 +60,7 @@ def parse_args():
                         action='store_true')
     parser.add_argument('--output_filter',
                         help=('only output variables with names'
-                              'string with given string.'),
+                              ' starting with the given string.'),
                         default='')
     parser.add_argument('-r',
                         '--recursive',
