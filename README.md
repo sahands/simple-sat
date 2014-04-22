@@ -7,17 +7,23 @@ This project is a simple recursive and iterative implementation of a backtrackin
 Usage
 -----
 
+    usage: sat.py [-h] [-v] [-a] [-b] [--output_filter OUTPUT_FILTER] [-r]
+                  [-i INPUT]
 
-    usage: sat.py [-h] [-v] [-r] [-i INPUT]
-    
     Solve SAT instance by reading from stdin using an iterative or recursive
-    watchlist-based backtracking algorithm. Iterative algorithm is used by default,
-    unless the -r flag is given.
+    watchlist-based backtracking algorithm. Iterative algorithm is used by
+    default, unless the -r flag is given. Empty lines and lines starting with a #
+    will be ignored.
 
-    
     optional arguments:
       -h, --help            show this help message and exit
       -v, --verbose         verbose output.
+      -a, --all             output all possible solutions.
+      -b, --brief           brief output for assignemnts: outputs variables
+                            assigned 1.
+      --output_filter OUTPUT_FILTER
+                            only output variables with namesstring with given
+                            string.
       -r, --recursive       use the recursive backtracking algorithm.
       -i INPUT, --input INPUT
                             read from given file instead of stdin.
