@@ -3,16 +3,17 @@ from __future__ import print_function
 
 from sys import stderr
 
-from watchlist import setup_watchlist
 from watchlist import update_watchlist
 
 __author__ = 'Sahand Saba'
 
 
-def solve(instance, verbose=False):
-    watchlist = setup_watchlist(instance)
-    if not watchlist:
-        return
+def solve(instance, watchlist, assignment, d, verbose):
+    """
+    Iteratively solve SAT by assigning to variables d, d+1, ..., n-1. Assumes
+    variables 0, ..., d-1 are assigned so far. A generator for all the
+    satisfying assignments is returned.
+    """
 
     # The state list wil keep track of what values for which variables
     # we have tried so far. A value of 0 means nothing has been tried yet,
@@ -20,8 +21,7 @@ def solve(instance, verbose=False):
     # not False, and 3 means both have been tried.
     n = len(instance.variables)
     state = [0] * n
-    assignment = [None] * n
-    d = 0  # Current depth in the backtrack tree
+
     while True:
         if d == n:
             yield assignment

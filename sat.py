@@ -14,10 +14,24 @@ from sys import stdin
 from sys import stderr
 
 from satinstance import SATInstance
+from watchlist import setup_watchlist
 import recursive_sat
 import iterative_sat
 
 __author__ = 'Sahand Saba'
+
+
+def solve(instance, alg, verbose=False):
+    """
+    Returns a generator that generates all the satisfying assignments for a
+    given SAT instance, using algorithm given by alg.
+    """
+    n = len(instance.variables)
+    watchlist = setup_watchlist(instance)
+    if not watchlist:
+        return ()
+    assignment = [None] * n
+    return alg.solve(instance, watchlist, assignment, 0, verbose)
 
 
 def main():
@@ -26,7 +40,7 @@ def main():
     with args.input as file:
         instance = SATInstance.from_file(file)
 
-    assignments = args.algorithm.solve(instance, args.verbose)
+    assignments = solve(instance, args.algorithm, args.verbose)
     count = 0
     for assignment in assignments:
         if args.verbose:
