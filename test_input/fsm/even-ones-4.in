@@ -1,0 +1,47 @@
+# Input file for t = 4
+# To make sure that P1 ... Pt are the first variables
+P1 ~P1 P2 ~P2 P3 ~P3 P4 ~P4
+
+# No more than one state at each step
+~Q0-0 ~Q1-0
+~Q0-1 ~Q1-1
+~Q0-2 ~Q1-2
+~Q0-3 ~Q1-3
+~Q0-4 ~Q1-4
+
+# At least one state in each step
+Q0-0 Q1-0
+Q0-1 Q1-1
+Q0-2 Q1-2
+Q0-3 Q1-3
+Q0-4 Q1-4
+
+# Add the rules
+# (EVEN, 1) -> ODD
+~Q0-0   ~P1   Q1-1
+~Q0-1   ~P2   Q1-2
+~Q0-2   ~P3   Q1-3
+~Q0-3   ~P4   Q1-4
+
+# (ODD, 1) -> EVEN
+~Q1-0   ~P1   Q0-1
+~Q1-1   ~P2   Q0-2
+~Q1-2   ~P3   Q0-3
+~Q1-3   ~P4   Q0-4
+
+# (EVEN, 0) -> EVEN
+~Q0-0    P1   Q0-1
+~Q0-1    P2   Q0-2
+~Q0-2    P3   Q0-3
+~Q0-3    P4   Q0-4
+
+# (ODD, 0) -> ODD
+~Q1-0    P1   Q1-1
+~Q1-1    P2   Q1-2
+~Q1-2    P3   Q1-3
+~Q1-3    P4   Q1-4
+
+# Start in state 0
+Q0-0
+# End in an accepting state
+Q0-4
