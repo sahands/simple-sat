@@ -6,10 +6,6 @@ from sys import stderr
 from watchlist import update_watchlist
 
 
-__author__ = 'Sahand Saba'
-__email__ = 'sahands@gmail.com'
-
-
 def solve(instance, watchlist, assignment, d, verbose):
     """
     Recursively solve SAT by assigning to variables d, d+1, ..., n-1. Assumes
