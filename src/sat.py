@@ -14,9 +14,9 @@ from sys import stdin
 from sys import stderr
 
 from satinstance import SATInstance
-from watchlist import setup_watchlist
-import recursive_sat
-import iterative_sat
+from solvers.watchlist import setup_watchlist
+from solvers import recursive_sat
+from solvers import iterative_sat
 
 __author__ = 'Sahand Saba'
 
