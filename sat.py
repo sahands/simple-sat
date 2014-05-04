@@ -2,8 +2,8 @@
 """
 Solves SAT instance by reading from stdin using an iterative or recursive
 watchlist-based backtracking algorithm. Iterative algorithm is used by default,
-unless the -r flag is given. Empty lines and lines starting with a # will be
-ignored.
+unless the --recursive flag is given. Empty lines and lines starting with a #
+will be ignored.
 """
 from __future__ import division
 from __future__ import print_function
@@ -48,7 +48,7 @@ def main():
                   file=stderr)
         print(instance.assignment_to_string(assignment,
                                             brief=args.brief,
-                                            starting_with=args.output_filter))
+                                            starting_with=args.starting_with))
         count += 1
         if not args.all:
             break
@@ -69,20 +69,19 @@ def parse_args():
                         action='store_true')
     parser.add_argument('-b',
                         '--brief',
-                        help=('brief output for assignemnts:'
-                              ' outputs variables assigned 1.'),
+                        help=('brief output:'
+                              ' only outputs variables assigned true.'),
                         action='store_true')
-    parser.add_argument('--output_filter',
+    parser.add_argument('--starting_with',
                         help=('only output variables with names'
                               ' starting with the given string.'),
                         default='')
-    parser.add_argument('-r',
-                        '--recursive',
-                        help='use the recursive backtracking algorithm.',
+    parser.add_argument('--iterative',
+                        help='use the iterative algorithm.',
                         action='store_const',
                         dest='algorithm',
-                        default=iterative_sat,
-                        const=recursive_sat)
+                        default=recursive_sat,
+                        const=iterative_sat)
     parser.add_argument('-i',
                         '--input',
                         help='read from given file instead of stdin.',
