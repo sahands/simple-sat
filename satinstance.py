@@ -53,8 +53,11 @@ class SATInstance(object):
         return ' '.join(self.literal_to_string(l) for l in clause)
 
     def assignment_to_string(self, assignment, brief=False, starting_with=''):
-        return ' '.join(v if assignment[i] else '~' + v
-                        for i, v in enumerate(self.variables)
-                        if ((brief and assignment[i]) or
-                            (not brief and assignment[i] is not None))
-                        and v.startswith(starting_with))
+        literals = []
+        for a, v in ((a, v) for a, v in zip(assignment, self.variables)
+                     if v.startswith(starting_with)):
+            if a == 0 and not brief:
+                literals.append('~' + v)
+            elif a:
+                literals.append(v)
+        return ' '.join(literals)
