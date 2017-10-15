@@ -45,7 +45,7 @@ Example Usage
 
 .. code-block:: text
 
-    $ python sat.py -v --input test_input/simple/02.in
+    $ python sat.py -v --input tests/simple/02.in
     Current watchlist:
     1: 1 2 3, 1 ~2
     ~1:
