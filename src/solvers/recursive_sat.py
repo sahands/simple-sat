@@ -3,7 +3,7 @@ from __future__ import print_function
 
 from sys import stderr
 
-from watchlist import update_watchlist
+from .watchlist import update_watchlist
 
 
 def solve(instance, watchlist, assignment, d, verbose):
