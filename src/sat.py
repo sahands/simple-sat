@@ -11,6 +11,7 @@ from __future__ import print_function
 from argparse import ArgumentParser
 from argparse import FileType
 from sys import stdin
+from sys import stdout
 from sys import stderr
 
 from satinstance import SATInstance
@@ -21,7 +22,7 @@ from solvers import iterative_sat
 __author__ = 'Sahand Saba'
 
 
-def solve(instance, alg, verbose=False):
+def generate_assignmnets(instance, solver, verbose=False):
     """
     Returns a generator that generates all the satisfying assignments for a
     given SAT instance, using algorithm given by alg.
@@ -31,30 +32,42 @@ def solve(instance, alg, verbose=False):
     if not watchlist:
         return ()
     assignment = [None] * n
-    return alg.solve(instance, watchlist, assignment, 0, verbose)
+    return solver.solve(instance, watchlist, assignment, 0, verbose)
+
+
+def run_solver(input_file, output_file, solver, brief, verbose, output_all,
+               starting_with):
+    """
+    Run the given solver for the given file-like input object and write the
+    output to the given output file-like object.
+    """
+    instance = SATInstance.from_file(input_file)
+    assignments = generate_assignmnets(instance, solver, verbose)
+    count = 0
+    for assignment in assignments:
+        count += 1
+        if verbose:
+            print('Found satisfying assignment #{}:'.format(count),
+                  file=stderr)
+        assignment_str = instance.assignment_to_string(
+                assignment,
+                brief=brief,
+                starting_with=starting_with
+        )
+        output_file.write(assignment_str + '\n')
+        if not output_all:
+            break
+
+    if verbose and count == 0:
+        print('No satisfying assignment exists.', file=stderr)
 
 
 def main():
     args = parse_args()
-    instance = None
-    with args.input as file:
-        instance = SATInstance.from_file(file)
-
-    assignments = solve(instance, args.algorithm, args.verbose)
-    count = 0
-    for assignment in assignments:
-        if args.verbose:
-            print('Found satisfying assignment #{}:'.format(count),
-                  file=stderr)
-        print(instance.assignment_to_string(assignment,
-                                            brief=args.brief,
-                                            starting_with=args.starting_with))
-        count += 1
-        if not args.all:
-            break
-
-    if args.verbose and count == 0:
-        print('No satisfying assignment exists.', file=stderr)
+    with args.input:
+        with args.output:
+            run_solver(args.input, args.output, args.solver, args.brief,
+                       args.verbose, args.all, args.starting_with)
 
 
 def parse_args():
@@ -79,7 +92,7 @@ def parse_args():
     parser.add_argument('--iterative',
                         help='use the iterative algorithm.',
                         action='store_const',
-                        dest='algorithm',
+                        dest='solver',
                         default=recursive_sat,
                         const=iterative_sat)
     parser.add_argument('-i',
@@ -87,6 +100,11 @@ def parse_args():
                         help='read from given file instead of stdin.',
                         type=FileType('r'),
                         default=stdin)
+    parser.add_argument('-o',
+                        '--output',
+                        help='write to given file instead of default stdout.',
+                        type=FileType('w'),
+                        default=stdout)
     return parser.parse_args()
 
 
