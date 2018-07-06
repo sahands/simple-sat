@@ -5,8 +5,7 @@ import unittest
 from sat import run_solver
 from solvers import recursive_sat
 from solvers import iterative_sat
-# TODO: Make this Python 3 compatible
-from StringIO import StringIO
+from io import StringIO
 
 
 class TestAllInputs(unittest.TestCase):
