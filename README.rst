@@ -6,7 +6,7 @@ backtracking, watchlist-based, SAT solver. Code is based mostly on Knuth's
 SAT0W program which can be found
 `here <http://www-cs-faculty.stanford.edu/~uno/programs.html>`_. The iterative
 code follows Knuth's version much closer, but is a bit more complicated. The
-recursive version is rather straight-forward. Intended primarily to as a
+recursive version is rather straight-forward. Intended primarily as a
 learning tool.
 
 Accompanying article can be found at
@@ -19,13 +19,13 @@ Usage
 
 .. code-block:: text
 
-    usage: sat.py [-h] [-v] [-a] [-b] [--output_filter OUTPUT_FILTER] [-r]
+    usage: sat.py [-h] [-v] [-a] [-b] [--output_filter OUTPUT_FILTER]
                   [-i INPUT]
 
     Solve SAT instance by reading from stdin using an iterative or recursive
-    watchlist-based backtracking algorithm. Iterative algorithm is used by
-    default, unless the -r flag is given. Empty lines and lines starting with a #
-    will be ignored.
+    watchlist-based backtracking algorithm. Recursive algorithm is used by
+    default, unless the --iterative flag is given. Empty lines and lines 
+    starting with a # will be ignored.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -36,7 +36,7 @@ Usage
       --output_filter OUTPUT_FILTER
                             only output variables with namesstring with given
                             string.
-      -r, --recursive       use the recursive backtracking algorithm.
+      --iterative           use the iterative solver.
       -i INPUT, --input INPUT
                             read from given file instead of stdin.
 
